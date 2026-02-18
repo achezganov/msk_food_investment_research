@@ -334,23 +334,23 @@ def parse_middle_beer_cup(value: str):
         value (str): значение из колонки avg_bill
 
     Возвращает:
-        float: рассчитанное значение или -1
+        float: рассчитанное значение или np.nan
     """
 
     if pd.isna(value):
-        return -1.0
+        return np.nan
 
     value = str(value).lower().strip()
 
     # Проверяем ключевую фразу
     if "цена бокала пива" not in value:
-        return -1.0
+        return np.nan
 
     # Извлекаем все числа
     numbers = re.findall(r'\d+', value)
 
     if not numbers:
-        return -1.0
+        return np.nan
 
     numbers = list(map(int, numbers))
 
@@ -362,4 +362,4 @@ def parse_middle_beer_cup(value: str):
     if len(numbers) >= 2:
         return float(np.median(numbers[:2]))
 
-    return -1.0
+    return np.nan
